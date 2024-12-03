@@ -9,9 +9,13 @@ public class PersonController : ControllerBase
         public int Id {get; set;}
     }
 
+    private readonly Database db;
+    public PersonController(Database db) {
+        this.db = db;
+    }
+
     [HttpPost("get")]
-    public Person Get(GetArgs args)
-    {
-        return new Person {Id = args.Id, Name = "Messi"};
+    public Person Get(GetArgs args) {
+        return db.Person.First();
     }
 }

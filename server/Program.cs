@@ -6,7 +6,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 var dbPath = Path.Join("var", "main.db");
-builder.Services.AddDbContext<MainDbContext>(
+builder.Services.AddDbContext<Database>(
     options => options.UseSqlite($"Data Source={dbPath}")
 );
 

@@ -14,3 +14,12 @@ run: build
 
 build:
     @ dotnet.exe build -o bin
+
+# Requirements:
+# * dotnet tool install --global dotnet-ef
+# * dotnet add package Microsoft.EntityFrameworkCore.Design
+add_migration target:
+    @ dotnet.exe ef migrations add {{target}}
+
+update_database:
+    @ dotnet.exe database update

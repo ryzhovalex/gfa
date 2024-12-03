@@ -22,8 +22,8 @@ async def autouse_session():
 async def autouse_function():
     process = subprocess.Popen(
         str(Path(Path.cwd(), "bin/gfa.exe")),
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
+        # stdout=subprocess.DEVNULL,
+        # stderr=subprocess.DEVNULL,
     )
     yield
     process.terminate()
@@ -37,6 +37,6 @@ class RpcJsonData:
 
 async def rpc_json(target: str, **body_kwargs) -> RpcJsonData:
     r = await httpx.AsyncClient().post(URL + "/" + target, json=body_kwargs)
-    assert r.status_code in [200, 400]
+    assert r.status_code in [200, 400], r.text
     data = r.json()
     return RpcJsonData(data)
