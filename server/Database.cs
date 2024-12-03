@@ -9,4 +9,8 @@ public class Database: DbContext
         : base(options)
     {
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+    }
 }

@@ -22,4 +22,4 @@ add_migration target:
     @ dotnet.exe ef migrations add {{target}}
 
 update_database:
-    @ dotnet.exe database update
+    @ dotnet.exe ef database update
