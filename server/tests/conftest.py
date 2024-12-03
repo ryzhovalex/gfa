@@ -28,7 +28,15 @@ async def autouse_function():
     yield
     process.terminate()
 
-async def rpc_json(target: str, **body_kwargs) -> Any:
+class RpcJsonData:
+    def __init__(self, m: dict) -> None:
+        self._m = m
+
+    def __getattr__(self, key: Any) -> Any:
+        return self._m[key]
+
+async def rpc_json(target: str, **body_kwargs) -> RpcJsonData:
     r = await httpx.AsyncClient().post(URL + "/" + target, json=body_kwargs)
     assert r.status_code in [200, 400]
-    return r.json()
+    data = r.json()
+    return RpcJsonData(data)
