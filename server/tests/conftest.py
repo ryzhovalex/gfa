@@ -20,7 +20,11 @@ async def autouse_session():
 
 @pytest.fixture(scope="function", autouse=True)
 async def autouse_function():
-    process = subprocess.Popen(str(Path(Path.cwd(), "bin/gfa.exe")))
+    process = subprocess.Popen(
+        str(Path(Path.cwd(), "bin/gfa.exe")),
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
     yield
     process.terminate()
 
