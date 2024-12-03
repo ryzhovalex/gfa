@@ -1,7 +1,22 @@
+import asyncio
+import os
+from pathlib import Path
 from typing import Any, Iterable
 import httpx
+import pytest
+import subprocess
 
 URL = "http://localhost:3000/rpc"
+
+@pytest.fixture(scope="session", autouse=True)
+async def autouse_session():
+    assert os.system("dotnet.exe build -o bin") == 0
+
+@pytest.fixture(scope="function", autouse=True)
+async def autouse_function():
+    process = subprocess.Popen(str(Path(Path.cwd(), "bin/gfa.exe")))
+    yield
+    process.terminate()
 
 async def rpc_json(target: str, **body_kwargs) -> Any:
     r = await httpx.AsyncClient().post(URL + "/" + target, json=body_kwargs)
