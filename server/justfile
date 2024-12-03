@@ -1,4 +1,13 @@
 set shell := ["nu", "-c"]
 
+test: test_unit test_integration
+
+test_unit:
+
+test_integration target="" show="all" *flags="":
+        @ echo "Run Integration Tests"
+        @ echo "---------------------"
+        @ pytest -m "not off" -x --ignore=src/legacy -p no:warnings --show-capture={{show}} --failed-first --asyncio-mode=auto {{flags}} tests/{{target}}
+
 run:
     @ dotnet run
