@@ -7,7 +7,7 @@ test_unit:
 test_integration target="" show="all" *flags="":
     @ echo "Run Integration Tests"
     @ echo "---------------------"
-    @ pytest -m "not off" -x --ignore=src/legacy -p no:warnings --show-capture={{show}} --failed-first --asyncio-mode=auto {{flags}} tests/{{target}}
+    @ pytest -m "not off" -x --ignore=src/legacy -p no:warnings --show-capture={{show}} --failed-first {{flags}} tests/{{target}}
 
 run: build
     @ ./bin/gfa.exe

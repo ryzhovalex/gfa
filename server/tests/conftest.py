@@ -10,7 +10,13 @@ URL = "http://localhost:3000/rpc"
 
 @pytest.fixture(scope="session", autouse=True)
 async def autouse_session():
-    assert os.system("dotnet.exe build -o bin") == 0
+    process = subprocess.Popen(
+        "dotnet.exe build -o bin",
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    process.wait()
+    assert process.returncode == 0
 
 @pytest.fixture(scope="function", autouse=True)
 async def autouse_function():
