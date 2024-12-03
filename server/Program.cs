@@ -22,4 +22,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+Console.WriteLine("Launching");
+app.Run("http://localhost:3000");
